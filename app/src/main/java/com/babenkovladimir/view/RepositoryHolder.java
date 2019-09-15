@@ -1,4 +1,4 @@
-package com.view;
+package com.babenkovladimir.view;
 
 import android.content.Intent;
 import android.net.Uri;

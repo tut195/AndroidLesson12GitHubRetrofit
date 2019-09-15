@@ -17,7 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.babenkovladimir.image.ImageActivity;
 import com.babenkovladimir.model.Repository;
 import com.babenkovladimir.retrofit.GithubRetrofit;
-import com.view.RepositoryAdapter;
+import com.babenkovladimir.retrofit.IGithub;
+import com.babenkovladimir.view.RepositoryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +71,13 @@ public class GithubActivity extends AppCompatActivity {
                 Log.i(TAG, "onQueryTextSubmit " + query);
                 mProgressDialog.show();
 
-                GithubRetrofit.getApi().getUsersRepo(query)
-                        .enqueue(new Callback<List<Repository>>() {
+                IGithub githubImpl = GithubRetrofit.getApi();
+
+
+                Call<List<Repository>> call =  githubImpl.getUsersRepo(query);
+
+
+                        call.enqueue(new Callback<List<Repository>>() {
                             @Override
                             public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
                                 if (response.isSuccessful()) {
